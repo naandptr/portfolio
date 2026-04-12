@@ -181,8 +181,13 @@
       .contact-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; max-width: 520px; }
       .prompt-line { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; margin-bottom: 1.5rem; }
       .prompt-sym { color: var(--pink); }
-      .email-link { color: var(--pink-soft); font-size: 13px; margin-bottom: 1.5rem; display: block; text-decoration: none; }
+      .email-link { color: var(--pink-soft); font-size: 13px; display: block; text-decoration: none; }
       .email-link:hover { text-decoration: underline; }
+      .email-row { margin-bottom: 1.5rem; }
+      .email-box { display: flex; justify-content: space-between; align-items: center; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; gap: 10px; transition: border-color 0.2s; }
+      .email-box:hover { border-color: var(--pink); }
+      .copy-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: monospace; font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+      .copy-btn:hover { border-color: var(--pink); color: var(--pink); }
       .form-group { margin-bottom: 16px; }
       .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
       .form-group input, .form-group textarea {
@@ -441,10 +446,18 @@
       </div>
       <div class="contact-box">
         <div class="prompt-line"><span class="prompt-sym">$</span> send_message --to=nandaputri.job@outlook.com</div>
-        <a class="email-link" href="mailto:nandaputri.job@outlook.com">nandaputri.job@outlook.com</a>
+        <div class="email-row">
+          <div class="email-box">
+              <a class="email-link" href="mailto:nandaputri.job@outlook.com">
+                nandaputri.job@outlook.com
+              </a>
+              <button class="copy-btn">$ copy</button>
+          </div>
+        </div>
+
         <div class="form-group">
-          <label>name</label>
-          <input type="text" placeholder="John Doe" />
+          <label>subject</label>
+          <input type="text" placeholder="Job opportunity / Collaboration / etc." />
         </div>
         <div class="form-group">
           <label>email</label>
@@ -659,6 +672,39 @@
 
       el.addEventListener("mouseleave", () => {
         cursor.classList.remove("heart");
+      });
+    });
+
+    /* COPY EMAIL TO CLIPBOARD */
+    const copyBtn = document.querySelector(".copy-btn");
+
+    copyBtn.addEventListener("click", () => {
+      const email = "nandaputri.job@outlook.com";
+
+      navigator.clipboard.writeText(email);
+
+      copyBtn.textContent = "copied ✧";
+
+      setTimeout(() => {
+        copyBtn.textContent = "$ copy";
+      }, 1500);
+    });
+
+    /* CONTACT FORM */
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector(".btn-send").addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const subjectInput = document.querySelector("input[type='text']").value;
+        const email = document.querySelector("input[type='email']").value;
+        const message = document.querySelector("textarea").value;
+
+        const subject = encodeURIComponent(subjectInput || "Opportunity from portfolio");
+        const body = encodeURIComponent(`${message}\n\nFrom: ${email}`);
+
+        const mailto = `mailto:nandaputri.job@outlook.com?subject=${subject}&body=${body}`;
+
+        window.location.href = mailto;
       });
     });
   </script>
