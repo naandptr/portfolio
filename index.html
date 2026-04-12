@@ -58,16 +58,13 @@
         pointer-events: none;
         transform: translate(-50%, -50%);
         z-index: 9999;
-      }
-
+      }      
       /* default cursor */
-      .cursor.heart {
-        width: 18px;
+      .cursor.heart { width: 18px;
         height: 18px;
         background: none;
         box-shadow: none;
-      }
-
+      }      
       .cursor.heart::before {
         content: "❤";
         color: #ff6fa5;
@@ -77,7 +74,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-
       /* sparkle trail */
       .sparkle {
         position: fixed;
@@ -86,25 +82,22 @@
         pointer-events: none;
         animation: sparkleFade 0.7s ease-out forwards;
         z-index: 9998;
-      }
-
-      @keyframes sparkleFade {
-        0% {
-          opacity: 1;
-          transform: scale(1) translateY(0) rotate(0deg);
-        }
-        100% {
-          opacity: 0;
-          transform: scale(0.6) translateY(-12px) rotate(90deg);
-        }
-      }
-
+      }      
+      
       /* NAV */
       nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 10; }
       .nav-logo { color: var(--pink); font-size: 14px; font-weight: bold; letter-spacing: 1px; }
       .nav-links { display: flex; gap: 1.5rem; }
       .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
       .nav-links a:hover { color: var(--pink); }
+      .nav-links a.active {
+        color: var(--pink);
+        text-shadow:
+          0 0 6px #ff6fa5cc,
+          0 0 12px #ff6fa577,
+          0 0 24px #ff6fa533;
+        animation: navGlow 2s ease-in-out infinite;
+      }
 
       /* HERO */
       .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: center; }
@@ -221,6 +214,30 @@
       footer span { color: var(--pink); }
 
       /* ANIMATIONS */
+      @keyframes sparkleFade {
+        0% {
+          opacity: 1;
+          transform: scale(1) translateY(0) rotate(0deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.6) translateY(-12px) rotate(90deg);
+        }
+      }
+      @keyframes navGlow {
+        0%, 100% {
+          text-shadow:
+            0 0 6px #ff6fa5cc,
+            0 0 12px #ff6fa577,
+            0 0 24px #ff6fa533;
+        }
+        50% {
+          text-shadow:
+            0 0 10px #ff9ecbff,
+            0 0 20px #ff6fa5aa,
+            0 0 35px #ff6fa555;
+        }
+      }
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(5px); }
         to { opacity: 1; transform: translateY(0); }
@@ -232,500 +249,510 @@
 
       /* RESPONSIVE */
       @media (max-width: 768px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-right {
-          margin-top: 20px;
-        }
-      }
-
+        .hero-grid { grid-template-columns: 1fr; }        
+        .hero-right { margin-top: 20px; }
+      }      
       @media (max-width: 600px) {
         h1.name { font-size: 1.6rem; }        
         .wrap { padding: 1.5rem 1rem; }
-        nav {
-          flex-direction: column;
-          gap: 10px;
-          padding: 0.75rem 1rem;
-        }
-        .nav-links {
-          gap: 0.75rem;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-        .nav-links a {
-          font-size: 12px;
-        }
+        nav { flex-direction: column; gap: 10px; padding: 0.75rem 1rem; }
+        .nav-links { gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+        .nav-links a { font-size: 12px; }
+        .exp-header { flex-direction: column; gap: 4px; }
+        .exp-period { align-self: flex-start; }
+        .contact-box { max-width: 100%; padding: 1.25rem 1rem; }
+        .prompt-line { font-size: 10px; word-break: break-all; }
+        .email-box { flex-wrap: wrap; }
+        .email-link { font-size: 11px; word-break: break-all; }
+        .copy-btn { width: 100%; text-align: center; }
+        .btn-send { width: 100%; text-align: center; }
       }
     </style>
     <link id="favicon" rel="icon" type="image/svg+xml">
   </head>
 
   <body>
-  <nav>
-    <div class="nav-logo">~/nanda-portfolio</div>
-    <div class="nav-links">
-      <a href="#about">about</a>
-      <a href="#experiences">experiences</a>
-      <a href="#projects">projects</a>
-      <a href="#stack">stack</a>
-      <a href="#contact">contact</a>
+    <nav>
+      <div class="nav-logo">~/nanda-portfolio</div>
+      <div class="nav-links">
+        <a href="#about">about</a>
+        <a href="#experiences">experiences</a>
+        <a href="#projects">projects</a>
+        <a href="#stack">stack</a>
+        <a href="#contact">contact</a>
+      </div>
+    </nav>
+
+    <div class="wrap">
+      <!-- HERO -->
+      <div class="hero" id="about">
+        <div class="hero-grid">        
+          <!-- LEFT -->
+          <div class="hero-left">
+            <div class="terminal-badge"><div class="dot"></div> status: accepting opportunities</div>
+            <h1 class="name">Nanda Putri <span>Ramadhani</span></h1>
+            <div class="role" id="typing"></div>
+            <p class="bio-text">
+              Backend-focused Web Developer with experience in building RESTful APIs using Laravel.
+            </p>          
+            <div class="hero-btns">
+              <a class="btn btn-primary" href="#projects">$ view projects</a>
+              <a class="btn btn-outline" href="#contact">$ get in touch</a>
+              <a class="btn-cv" href="files/cv-nanda-putri-ramadhani.pdf" download>&#8595; download cv</a>
+            </div>
+            <div class="social-links" style="margin-top:1.25rem;">
+              <a href="https://www.linkedin.com/in/naandptr/" target="_blank">linkedin</a>
+              <a href="https://github.com/naandptr" target="_blank">github</a>
+              <a href="https://www.instagram.com/rncsseven" target="_blank">instagram</a>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="hero-right">
+            <div class="terminal">
+              <div class="terminal-header">
+                <span style="color:#ff6fa5;">nanda@dev</span>:<span style="color:#ffb3cc;">~</span> $ bash
+              </div>
+              <div class="logs"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXPERIENCES -->
+      <section id="experiences">
+        <div class="section-header">
+          <span class="section-tag">// 01</span>
+          <h2 class="section-title">experiences</h2>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">Web Developer</div>
+            <div class="exp-period">Oct 2025 &mdash; Present</div>
+          </div>
+          <div class="exp-company">PT Hayaa Investama Group &middot; Jambi</div>
+          <ul class="exp-list">
+            <li>Developed RESTful APIs using Laravel to support end-to-end order-to-production workflows</li>
+            <li>Designed and managed relational database schemas (orders, designs, productions, payments, shipments)</li>
+            <li>Implemented multi-role access control (superadmin, admin, designer PIC, production PIC)</li>
+            <li>Translated business processes into backend logic and API endpoints</li>
+            <li>Performed debugging and optimized application flow based on operational needs</li>
+          </ul>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">Scrum Master &amp; Developer</div>
+            <div class="exp-period">Feb 2025 &mdash; Mar 2025</div>
+          </div>
+          <div class="exp-company">Final Project &middot; SMK Negeri 2 Kota Jambi</div>
+          <ul class="exp-list">
+            <li>Designed relational database structure and system architecture</li>
+            <li>Implemented authentication and role-based access control</li>
+            <li>Applied MVC architecture using Laravel Blade</li>
+            <li>Coordinated development process using Scrum methodology</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section id="education">
+        <div class="section-header">
+          <span class="section-tag">// 02</span>
+          <h2 class="section-title">education</h2>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Computer Science &mdash; Information Systems</div>
+          <div class="edu-school">University of Jambi &middot; Muaro Jambi</div>
+          <div class="edu-meta">
+            <span class="edu-badge">2021 &mdash; 2025</span>
+            <span class="edu-badge gpa">GPA 3.74 / 4.00</span>
+            <span class="edu-badge">Graduated with High Distinction</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="section-header">
+          <span class="section-tag">// 03</span>
+          <h2 class="section-title">endpoints</h2>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="card-top">
+              <div style="font-size:18px;">🏫</div>
+              <div class="card-links">
+                <a href="https://github.com/naandptr/sip-smeanda" target="_blank">repo</a>
+              </div>
+            </div>
+            <div class="card-title">Internship Management System — SMK Negeri 2 Jambi</div>
+            <div class="card-desc">Web-based platform for managing vocational school internship programs — covers user management, documents, attendance, daily journals, and student assessments.</div>
+            <div class="card-tags">
+              <span class="tag green">Laravel 11</span>
+              <span class="tag">PHP</span>
+              <span class="tag">MySQL</span>
+              <span class="tag amber">Sanctum</span>
+              <span class="tag purple">Spatie</span>
+              <span class="tag">Dompdf</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="card-top">
+              <div style="font-size:18px;">🖨️</div>
+              <div class="card-links">
+                <a href="https://github.com/projecthub-hayaa/be-projecthub-backend/tree/backend-development" target="_blank">repo</a>
+              </div>
+            </div>
+            <div class="card-title">ProjectHub API — Print Production Management</div>
+            <div class="card-desc">Backend API powering order management workflows for a print production business. Provides role-based REST endpoints to manage orders, designs, vendors, payments, and shipments.</div>
+            <div class="collab-badge">collab · backend role</div>
+            <div class="card-tags">
+              <span class="tag green">Laravel 10</span>
+              <span class="tag">PHP</span>
+              <span class="tag">MySQL</span>
+              <span class="tag amber">Sanctum</span>
+              <span class="tag purple">REST API</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="card-top">
+              <div style="font-size:18px;">📝</div>
+              <div class="card-links">
+                <a href="https://github.com/naandptr/notes-app-api" target="_blank">repo</a>
+              </div>
+            </div>
+            <div class="card-title">Notes App API</div>
+            <div class="card-desc">RESTful API for managing personal notes with authentication, tagging, and search functionality. Built with Laravel 12 using OAuth &amp; JWT.</div>
+            <div class="card-tags">
+              <span class="tag green">Laravel 12</span>
+              <span class="tag">PHP</span>
+              <span class="tag">MySQL</span>
+              <span class="tag amber">JWT</span>
+              <span class="tag purple">OAuth</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STACK -->
+      <section id="stack">
+        <div class="section-header">
+          <span class="section-tag">// 04</span>
+          <h2 class="section-title">tech_stack</h2>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#ff2d2022;">🐘</div>
+            <div><div class="stack-name">PHP</div><div class="stack-level">Intermediate</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#ff2d2022;">🔴</div>
+            <div><div class="stack-name">Laravel</div><div class="stack-level">Intermediate</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#0064a522;">🐬</div>
+            <div><div class="stack-name">MySQL</div><div class="stack-level">Intermediate</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#24292e22;">⚙️</div>
+            <div><div class="stack-name">Git</div><div class="stack-level">Intermediate</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#bc8cff22;">🛡️</div>
+            <div><div class="stack-name">Sanctum / JWT</div><div class="stack-level">Intermediate</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#ff6c3722;">📮</div>
+            <div><div class="stack-name">Postman</div><div class="stack-level">Intermediate</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#f7df1e22;">🌐</div>
+            <div><div class="stack-name">HTML / CSS / JS</div><div class="stack-level beginner">Beginner</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-header">
+          <span class="section-tag">// 05</span>
+          <h2 class="section-title">contact_me()</h2>
+        </div>
+        <div class="contact-box">
+          <div class="prompt-line"><span class="prompt-sym">$</span> send_message --to=nandaputri.job@outlook.com</div>
+          <div class="email-row">
+            <div class="email-box">
+                <a class="email-link" href="mailto:nandaputri.job@outlook.com">
+                  nandaputri.job@outlook.com
+                </a>
+                <button class="copy-btn">$ copy</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>subject</label>
+            <input type="text" placeholder="Job opportunity / Collaboration / etc." />
+          </div>
+          <div class="form-group">
+            <label>email</label>
+            <input type="email" placeholder="john@example.com" />
+          </div>
+          <div class="form-group">
+            <label>message</label>
+            <textarea placeholder="Hi Nanda, I'd like to..."></textarea>
+          </div>
+          <button class="btn-send">$ send message →</button>
+        </div>
+      </section>
+
+      <footer>
+        <p>built with ☕ + passion · <span>Nanda Putri Ramadhani</span></p>
+      </footer>
     </div>
-  </nav>
 
-  <div class="wrap">
-    <!-- HERO -->
-    <div class="hero" id="about">
-      <div class="hero-grid">
-        
-        <!-- LEFT -->
-        <div class="hero-left">
-          <div class="terminal-badge"><div class="dot"></div> status: accepting opportunities</div>
-          <h1 class="name">Nanda Putri <span>Ramadhani</span></h1>
-          <div class="role" id="typing"></div>
-          <p class="bio-text">
-            Backend-focused Web Developer with experience in building RESTful APIs using Laravel.
-          </p>
+    <div class="cursor"></div>
 
-          <div class="hero-btns">
-            <a class="btn btn-primary" href="#projects">$ view projects</a>
-            <a class="btn btn-outline" href="#contact">$ get in touch</a>
-            <a class="btn-cv" href="files/cv-nanda-putri-ramadhani.pdf" download>&#8595; download cv</a>
-          </div>
-          <div class="social-links" style="margin-top:1.25rem;">
-            <a href="https://www.linkedin.com/in/naandptr/" target="_blank">linkedin</a>
-            <a href="https://github.com/naandptr" target="_blank">github</a>
-            <a href="https://wa.me/62895622215218" target="_blank">whatsapp</a>
-          </div>
-        </div>
+    <script>
+      /* CUSTOM ICON ANIMATION */
+      const frames = [
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <text y=".9em" font-size="80">👑</text>
+      </svg>`,
 
-        <!-- RIGHT -->
-        <div class="hero-right">
-          <div class="terminal">
-            <div class="terminal-header">
-              <span style="color:#ff6fa5;">nanda@dev</span>:<span style="color:#ffb3cc;">~</span> $ bash
-            </div>
-            <div class="logs"></div>
-          </div>
-        </div>
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <text y=".9em" font-size="80">👑</text>
+      <text x="60" y="30" font-size="20">✦</text>
+      </svg>`,
 
-      </div>
-    </div>
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <text y=".9em" font-size="80">👑</text>
+      <text x="20" y="40" font-size="20">✧</text>
+      </svg>`
+      ];
 
-    <!-- EXPERIENCES -->
-    <section id="experiences">
-      <div class="section-header">
-        <span class="section-tag">// 01</span>
-        <h2 class="section-title">experiences</h2>
-      </div>
-      <div class="exp-item">
-        <div class="exp-header">
-          <div class="exp-title">Web Developer</div>
-          <div class="exp-period">Oct 2025 &mdash; Present</div>
-        </div>
-        <div class="exp-company">PT Hayaa Investama Group &middot; Jambi</div>
-        <ul class="exp-list">
-          <li>Developed RESTful APIs using Laravel to support end-to-end order-to-production workflows</li>
-          <li>Designed and managed relational database schemas (orders, designs, productions, payments, shipments)</li>
-          <li>Implemented multi-role access control (superadmin, admin, designer PIC, production PIC)</li>
-          <li>Translated business processes into backend logic and API endpoints</li>
-          <li>Performed debugging and optimized application flow based on operational needs</li>
-        </ul>
-      </div>
-      <div class="exp-item">
-        <div class="exp-header">
-          <div class="exp-title">Scrum Master &amp; Developer</div>
-          <div class="exp-period">Feb 2025 &mdash; Mar 2025</div>
-        </div>
-        <div class="exp-company">Final Project &middot; SMK Negeri 2 Kota Jambi</div>
-        <ul class="exp-list">
-          <li>Designed relational database structure and system architecture</li>
-          <li>Implemented authentication and role-based access control</li>
-          <li>Applied MVC architecture using Laravel Blade</li>
-          <li>Coordinated development process using Scrum methodology</li>
-        </ul>
-      </div>
-    </section>
+      let a = 0;
+      const favicon = document.getElementById("favicon");
 
-    <!-- EDUCATION -->
-    <section id="education">
-      <div class="section-header">
-        <span class="section-tag">// 02</span>
-        <h2 class="section-title">education</h2>
-      </div>
-      <div class="edu-item">
-        <div class="edu-degree">Bachelor of Computer Science &mdash; Information Systems</div>
-        <div class="edu-school">University of Jambi &middot; Muaro Jambi</div>
-        <div class="edu-meta">
-          <span class="edu-badge">2021 &mdash; 2025</span>
-          <span class="edu-badge gpa">GPA 3.74 / 4.00</span>
-          <span class="edu-badge">Graduated with High Distinction</span>
-        </div>
-      </div>
-    </section>
+      setInterval(() => {
+        const svg = frames[a];
+        const url = "data:image/svg+xml," + encodeURIComponent(svg);
+        favicon.href = url;
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="section-header">
-        <span class="section-tag">// 03</span>
-        <h2 class="section-title">endpoints</h2>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="card-top">
-            <div style="font-size:18px;">🏫</div>
-            <div class="card-links">
-              <a href="https://github.com/naandptr/sip-smeanda" target="_blank">repo</a>
-            </div>
-          </div>
-          <div class="card-title">Internship Management System — SMK Negeri 2 Jambi</div>
-          <div class="card-desc">Web-based platform for managing vocational school internship programs — covers user management, documents, attendance, daily journals, and student assessments.</div>
-          <div class="card-tags">
-            <span class="tag green">Laravel 11</span>
-            <span class="tag">PHP</span>
-            <span class="tag">MySQL</span>
-            <span class="tag amber">Sanctum</span>
-            <span class="tag purple">Spatie</span>
-            <span class="tag">Dompdf</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="card-top">
-            <div style="font-size:18px;">🖨️</div>
-            <div class="card-links">
-              <a href="https://github.com/projecthub-hayaa/be-projecthub-backend/tree/backend-development" target="_blank">repo</a>
-            </div>
-          </div>
-          <div class="card-title">ProjectHub API — Print Production Management</div>
-          <div class="card-desc">Backend API powering order management workflows for a print production business. Provides role-based REST endpoints to manage orders, designs, vendors, payments, and shipments.</div>
-          <div class="collab-badge">collab · backend role</div>
-          <div class="card-tags">
-            <span class="tag green">Laravel 10</span>
-            <span class="tag">PHP</span>
-            <span class="tag">MySQL</span>
-            <span class="tag amber">Sanctum</span>
-            <span class="tag purple">REST API</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="card-top">
-            <div style="font-size:18px;">📝</div>
-            <div class="card-links">
-              <a href="https://github.com/naandptr/notes-app-api" target="_blank">repo</a>
-            </div>
-          </div>
-          <div class="card-title">Notes App API</div>
-          <div class="card-desc">RESTful API for managing personal notes with authentication, tagging, and search functionality. Built with Laravel 12 using OAuth &amp; JWT.</div>
-          <div class="card-tags">
-            <span class="tag green">Laravel 12</span>
-            <span class="tag">PHP</span>
-            <span class="tag">MySQL</span>
-            <span class="tag amber">JWT</span>
-            <span class="tag purple">OAuth</span>
-          </div>
-        </div>
-      </div>
-    </section>
+        a = (a + 1) % frames.length;
+      }, 400);
 
-    <!-- STACK -->
-    <section id="stack">
-      <div class="section-header">
-        <span class="section-tag">// 04</span>
-        <h2 class="section-title">tech_stack</h2>
-      </div>
-      <div class="stack-grid">
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#ff2d2022;">🐘</div>
-          <div><div class="stack-name">PHP</div><div class="stack-level">Intermediate</div></div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#ff2d2022;">🔴</div>
-          <div><div class="stack-name">Laravel</div><div class="stack-level">Intermediate</div></div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#0064a522;">🐬</div>
-          <div><div class="stack-name">MySQL</div><div class="stack-level">Intermediate</div></div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#24292e22;">⚙️</div>
-          <div><div class="stack-name">Git</div><div class="stack-level">Intermediate</div></div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#bc8cff22;">🛡️</div>
-          <div><div class="stack-name">Sanctum / JWT</div><div class="stack-level">Intermediate</div></div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#ff6c3722;">📮</div>
-          <div><div class="stack-name">Postman</div><div class="stack-level">Intermediate</div></div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon" style="background:#f7df1e22;">🌐</div>
-          <div><div class="stack-name">HTML / CSS / JS</div><div class="stack-level beginner">Beginner</div></div>
-        </div>
-      </div>
-    </section>
+      /* TYPING ANIMATION */
+      const text = "$ backend princess · building APIs...";
+      let b = 0;
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="section-header">
-        <span class="section-tag">// 05</span>
-        <h2 class="section-title">contact_me()</h2>
-      </div>
-      <div class="contact-box">
-        <div class="prompt-line"><span class="prompt-sym">$</span> send_message --to=nandaputri.job@outlook.com</div>
-        <div class="email-row">
-          <div class="email-box">
-              <a class="email-link" href="mailto:nandaputri.job@outlook.com">
-                nandaputri.job@outlook.com
-              </a>
-              <button class="copy-btn">$ copy</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>subject</label>
-          <input type="text" placeholder="Job opportunity / Collaboration / etc." />
-        </div>
-        <div class="form-group">
-          <label>email</label>
-          <input type="email" placeholder="john@example.com" />
-        </div>
-        <div class="form-group">
-          <label>message</label>
-          <textarea placeholder="Hi Nanda, I'd like to..."></textarea>
-        </div>
-        <button class="btn-send">$ send message →</button>
-      </div>
-    </section>
-
-    <footer>
-      <p>built with ☕ + passion · <span>Nanda Putri Ramadhani</span></p>
-    </footer>
-  </div>
-
-  <div class="cursor"></div>
-
-  <script>
-    /* CUSTOM ICON ANIMATION */
-    const frames = [
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <text y=".9em" font-size="80">👑</text>
-    </svg>`,
-
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <text y=".9em" font-size="80">👑</text>
-    <text x="60" y="30" font-size="20">✦</text>
-    </svg>`,
-
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <text y=".9em" font-size="80">👑</text>
-    <text x="20" y="40" font-size="20">✧</text>
-    </svg>`
-    ];
-
-    let a = 0;
-    const favicon = document.getElementById("favicon");
-
-    setInterval(() => {
-      const svg = frames[a];
-      const url = "data:image/svg+xml," + encodeURIComponent(svg);
-      favicon.href = url;
-
-      a = (a + 1) % frames.length;
-    }, 400);
-
-    /* TYPING ANIMATION */
-    const text = "$ backend princess · building APIs...";
-    let b = 0;
-
-    function type() {
-      if (b < text.length) {
-        document.getElementById("typing").innerHTML += text.charAt(b);
-        b++;
-        setTimeout(type, 40);
+      function type() {
+        if (b < text.length) {
+          document.getElementById("typing").innerHTML += text.charAt(b);
+          b++;
+          setTimeout(type, 40);
+        }
       }
-    }
-    type();
+      type();
 
-    /* LOG SIMULATION */
-    const logContainer = document.querySelector(".logs");
+      /* LOG SIMULATION */
+      const logContainer = document.querySelector(".logs");
 
-    const logTemplates = [
-      () => `[${getTime()}] GET    /api/projects 200 OK`,
-      () => `[${getTime()}] POST   /api/contact 201 Created`,
-      () => `[${getTime()}] GET    /api/projects 304 Not Modified`,
-      () => `[${getTime()}] AUTH   User authenticated (id=${rand(100,999)})`,
-      () => `[${getTime()}] DB     select * from projects (${rand(5,40)}ms)`,
-      () => `[${getTime()}] DB     insert into contacts (${rand(10,60)}ms)`,
-      () => `[${getTime()}] WARN   Too many requests from 127.0.0.1`,
-      () => `[${getTime()}] ERROR  SQLSTATE[HY000]: Connection lost`,
-    ];
+      const logTemplates = [
+        () => `[${getTime()}] GET    /api/projects 200 OK`,
+        () => `[${getTime()}] POST   /api/contact 201 Created`,
+        () => `[${getTime()}] GET    /api/projects 304 Not Modified`,
+        () => `[${getTime()}] AUTH   User authenticated (id=${rand(100,999)})`,
+        () => `[${getTime()}] DB     select * from projects (${rand(5,40)}ms)`,
+        () => `[${getTime()}] DB     insert into contacts (${rand(10,60)}ms)`,
+        () => `[${getTime()}] WARN   Too many requests from 127.0.0.1`,
+        () => `[${getTime()}] ERROR  SQLSTATE[HY000]: Connection lost`,
+      ];
 
-    function getTime() {
-      const d = new Date();
-      return d.toTimeString().split(" ")[0];
-    }
-
-    function rand(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function getColor(log) {
-      if (log.includes("200") || log.includes("201")) return "#ffb3cc";
-      if (log.includes("ERROR")) return "#ff4d6d";
-      if (log.includes("WARN")) return "#ff9ecb";
-      if (log.includes("AUTH")) return "#ff6fa5";
-      if (log.includes("DB")) return "#ffc0cb";
-      return "#c9a9b6";
-    }
-
-    function addLog() {
-      const logText = logTemplates[Math.floor(Math.random() * logTemplates.length)]();
-
-      const line = document.createElement("div");
-      line.textContent = logText;
-      line.style.color = getColor(logText);
-
-      logContainer.appendChild(line);
-
-      // auto scroll
-      logContainer.scrollTop = logContainer.scrollHeight;
-
-      // limit max lines 
-      if (logContainer.children.length > 12) {
-        logContainer.removeChild(logContainer.firstChild);
+      function getTime() {
+        const d = new Date();
+        return d.toTimeString().split(" ")[0];
       }
 
-      // next log random delay
-      const delay = rand(300, 900);
-      setTimeout(addLog, delay);
-    }
+      function rand(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
 
-    function getFullDate() {
-      const d = new Date();
+      function getColor(log) {
+        if (log.includes("200") || log.includes("201")) return "#ffb3cc";
+        if (log.includes("ERROR")) return "#ff4d6d";
+        if (log.includes("WARN")) return "#ff9ecb";
+        if (log.includes("AUTH")) return "#ff6fa5";
+        if (log.includes("DB")) return "#ffc0cb";
+        return "#c9a9b6";
+      }
 
-      const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      function addLog() {
+        const logText = logTemplates[Math.floor(Math.random() * logTemplates.length)]();
 
-      const day = days[d.getDay()];
-      const month = months[d.getMonth()];
-      const date = String(d.getDate()).padStart(2, "0");
-      const time = d.toTimeString().split(" ")[0];
-      const year = d.getFullYear();
-
-      return `${day} ${month} ${date} ${time} ${year}`;
-    }
-
-    const introLogs = [
-      "nanda@dev:~$ php artisan serve",
-      "Starting Laravel development server: http://127.0.0.1:8000",
-      `[${getFullDate()}] Development Server started`
-    ];
-
-    introLogs.forEach((log, i) => {
-      setTimeout(() => {
         const line = document.createElement("div");
-        line.textContent = log;
+        line.textContent = logText;
+        line.style.color = getColor(logText);
+
         logContainer.appendChild(line);
-      }, i * 500);
-    });
 
-    // start
-    const introDelay = introLogs.length * 500;
-    setTimeout(() => {
-      addLog();
-    }, introDelay);    
-    
-    /* COPY EMAIL TO CLIPBOARD */
-    const copyBtn = document.querySelector(".copy-btn");
+        // auto scroll
+        logContainer.scrollTop = logContainer.scrollHeight;
 
-    copyBtn.addEventListener("click", () => {
-      const email = "nandaputri.job@outlook.com";
+        // limit max lines 
+        if (logContainer.children.length > 12) {
+          logContainer.removeChild(logContainer.firstChild);
+        }
 
-      navigator.clipboard.writeText(email);
+        // next log random delay
+        const delay = rand(300, 900);
+        setTimeout(addLog, delay);
+      }
 
-      copyBtn.textContent = "copied ✧";
+      function getFullDate() {
+        const d = new Date();
 
+        const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+        const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+        const day = days[d.getDay()];
+        const month = months[d.getMonth()];
+        const date = String(d.getDate()).padStart(2, "0");
+        const time = d.toTimeString().split(" ")[0];
+        const year = d.getFullYear();
+
+        return `${day} ${month} ${date} ${time} ${year}`;
+      }
+
+      const introLogs = [
+        "nanda@dev:~$ php artisan serve",
+        "Starting Laravel development server: http://127.0.0.1:8000",
+        `[${getFullDate()}] Development Server started`
+      ];
+
+      introLogs.forEach((log, i) => {
+        setTimeout(() => {
+          const line = document.createElement("div");
+          line.textContent = log;
+          logContainer.appendChild(line);
+        }, i * 500);
+      });
+
+      // start
+      const introDelay = introLogs.length * 500;
       setTimeout(() => {
-        copyBtn.textContent = "$ copy";
-      }, 1500);
-    });
+        addLog();
+      }, introDelay);    
+      
+      /* COPY EMAIL TO CLIPBOARD */
+      const copyBtn = document.querySelector(".copy-btn");
 
-    /* CONTACT FORM */
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelector(".btn-send").addEventListener("click", (e) => {
-        e.preventDefault();
+      copyBtn.addEventListener("click", () => {
+        const email = "nandaputri.job@outlook.com";
 
-        const subjectInput = document.querySelector("input[type='text']").value;
-        const email = document.querySelector("input[type='email']").value;
-        const message = document.querySelector("textarea").value;
+        navigator.clipboard.writeText(email);
 
-        const subject = encodeURIComponent(subjectInput || "Opportunity from portfolio");
-        const body = encodeURIComponent(`${message}\n\nFrom: ${email}`);
+        copyBtn.textContent = "copied ✧";
 
-        const mailto = `mailto:nandaputri.job@outlook.com?subject=${subject}&body=${body}`;
-
-        window.location.href = mailto;
-      });
-    });
-
-    /* CUSTOM CURSOR — desktop only */
-    const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-    const cursor = document.querySelector(".cursor");
-
-    if (!isTouchDevice) {
-      let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
-
-      document.addEventListener("mousemove", (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        setTimeout(() => {
+          copyBtn.textContent = "$ copy";
+        }, 1500);
       });
 
-      function animateCursor() {
-        currentX += (mouseX - currentX) * 0.15;
-        currentY += (mouseY - currentY) * 0.15;
-        cursor.style.left = currentX + "px";
-        cursor.style.top = currentY + "px";
-        requestAnimationFrame(animateCursor);
-      }
-      animateCursor();
+      /* CONTACT FORM */
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelector(".btn-send").addEventListener("click", (e) => {
+          e.preventDefault();
 
-      const sparkleChars = ["✦", "✧"];
-      let lastSpawn = 0;
+          const subjectInput = document.querySelector("input[type='text']").value;
+          const email = document.querySelector("input[type='email']").value;
+          const message = document.querySelector("textarea").value;
 
-      document.addEventListener("mousemove", (e) => {
-        const now = Date.now();
-        if (now - lastSpawn < 50) return;
-        lastSpawn = now;
+          const subject = encodeURIComponent(subjectInput || "Opportunity from portfolio");
+          const body = encodeURIComponent(`${message}\n\nFrom: ${email}`);
 
-        const sparkle = document.createElement("div");
-        sparkle.className = "sparkle";
-        sparkle.innerText = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
-        sparkle.style.left = e.clientX + "px";
-        sparkle.style.top = e.clientY + "px";
-        document.body.appendChild(sparkle);
+          const mailto = `mailto:nandaputri.job@outlook.com?subject=${subject}&body=${body}`;
 
-        setTimeout(() => { sparkle.remove(); }, 700);
-      });
-
-      /* heart on hover */
-      if (!isTouchDevice) {
-        const interactiveElements = document.querySelectorAll("a, button");
-
-        interactiveElements.forEach((el) => {
-          el.addEventListener("mouseenter", () => {
-            cursor.classList.add("heart");
-          });
-
-          el.addEventListener("mouseleave", () => {
-            cursor.classList.remove("heart");
-          });
+          window.location.href = mailto;
         });
+      });
+
+      /* NAV ACTIVE STATE */
+      const sections = document.querySelectorAll("section, .hero");
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(link => {
+              link.classList.remove("active");
+              if (link.getAttribute("href") === `#${id}`) {
+                link.classList.add("active");
+              }
+            });
+          }
+        });
+      }, { threshold: 0.4 });
+
+      sections.forEach(s => observer.observe(s));
+
+      /* CUSTOM CURSOR */
+      const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      const cursor = document.querySelector(".cursor");
+
+      if (!isTouchDevice) {
+        let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+
+        document.addEventListener("mousemove", (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+          currentX += (mouseX - currentX) * 0.15;
+          currentY += (mouseY - currentY) * 0.15;
+          cursor.style.left = currentX + "px";
+          cursor.style.top = currentY + "px";
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const sparkleChars = ["✦", "✧"];
+        let lastSpawn = 0;
+
+        document.addEventListener("mousemove", (e) => {
+          const now = Date.now();
+          if (now - lastSpawn < 50) return;
+          lastSpawn = now;
+
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.innerText = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+          sparkle.style.left = e.clientX + "px";
+          sparkle.style.top = e.clientY + "px";
+          document.body.appendChild(sparkle);
+
+          setTimeout(() => { sparkle.remove(); }, 700);
+        });
+
+        /* heart on hover */
+        if (!isTouchDevice) {
+          const interactiveElements = document.querySelectorAll("a, button");
+
+          interactiveElements.forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+              cursor.classList.add("heart");
+            });
+
+            el.addEventListener("mouseleave", () => {
+              cursor.classList.remove("heart");
+            });
+          });
+        }
+      } else {
+        cursor.style.display = "none";
       }
-    } else {
-      cursor.style.display = "none";
-    }
-  </script>
+    </script>
   </body>
 </html>
