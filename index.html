@@ -1,272 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nanda Putri Ramadhani — Backend Developer</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
-      --border: #30363d; --green: #3fb950; --green2: #238636;
-      --cyan: #58a6ff; --muted: #8b949e; --text: #e6edf3;
-      --purple: #bc8cff; --amber: #d29922;
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; }
-    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nanda Putri Ramadhani — Backend Developer</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #140d12;
+        --bg2: #1e141a;
+        --bg3: #2a1b23;
 
-    /* NAV */
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 10; }
-    .nav-logo { color: var(--green); font-size: 14px; font-weight: bold; letter-spacing: 1px; }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--green); }
+        --border: #3a2a33;
 
-    /* HERO */
-    .hero { padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); }
-    .terminal-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    h1.name { font-size: 2.2rem; color: var(--text); line-height: 1.2; margin-bottom: 0.5rem; font-family: monospace; }
-    h1.name span { color: var(--green); }
-    .role { color: var(--cyan); font-size: 1rem; margin-bottom: 1rem; }
-    .bio-text { color: var(--muted); font-size: 13.5px; max-width: 620px; line-height: 1.85; margin-bottom: 2rem; }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn { padding: 8px 20px; border-radius: 6px; font-size: 13px; font-family: monospace; cursor: pointer; border: 1px solid; text-decoration: none; transition: all 0.2s; display: inline-block; }
-    .btn-primary { background: var(--green2); border-color: var(--green); color: #fff; }
-    .btn-primary:hover { background: #2ea043; }
-    .btn-outline { background: transparent; border-color: var(--border); color: var(--muted); }
-    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+        --text: #ffeef5;
+        --muted: #c9a9b6;
 
-    /* SECTIONS */
-    section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
-    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; }
-    .section-tag { color: var(--green); font-size: 12px; }
-    h2.section-title { font-size: 1.1rem; color: var(--text); }
+        --pink: #ff6fa5;
+        --pink-soft: #ffb3cc;
+        --pink-dark: #e2558f;
 
-    /* PROJECTS */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
-    .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 10px; }
-    .project-card:hover { border-color: var(--green); }
-    .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-    .card-links { display: flex; gap: 6px; }
-    .card-links a { color: var(--muted); font-size: 11px; text-decoration: none; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; transition: all 0.2s; }
-    .card-links a:hover { color: var(--cyan); border-color: var(--cyan); }
-    .card-title { font-size: 14px; font-weight: bold; color: var(--text); line-height: 1.4; }
-    .card-desc { font-size: 12px; color: var(--muted); line-height: 1.75; flex: 1; }
-    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tag { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #0c2d6b22; border: 1px solid #58a6ff44; color: var(--cyan); }
-    .tag.green { background: #0d4c2622; border-color: #3fb95044; color: var(--green); }
-    .tag.amber { background: #3d2c0022; border-color: #d2992244; color: var(--amber); }
-    .tag.purple { background: #2d1e4f22; border-color: #bc8cff44; color: var(--purple); }
-    .collab-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--purple); border: 1px solid #bc8cff44; border-radius: 4px; padding: 2px 8px; background: #2d1e4f22; width: fit-content; }
+        --accent: #ff9ecb; 
+      }
+      html { scroll-behavior: smooth; }
+      body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; }
+      .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-    /* STACK */
-    .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-    .stack-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s; }
-    .stack-item:hover { border-color: var(--cyan); }
-    .stack-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .stack-name { font-size: 13px; color: var(--text); }
-    .stack-level { font-size: 11px; color: var(--muted); }
-    .stack-level.beginner { color: var(--amber); }
+      /* CURSOR */
+      body {
+        cursor: none;
+      }
 
-    /* CONTACT */
-    .contact-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; max-width: 520px; }
-    .prompt-line { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; margin-bottom: 1.5rem; }
-    .prompt-sym { color: var(--green); }
-    .email-link { color: var(--cyan); font-size: 13px; margin-bottom: 1.5rem; display: block; text-decoration: none; }
-    .email-link:hover { text-decoration: underline; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-    .form-group input, .form-group textarea {
-      width: 100%; background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--text); font-family: monospace;
-      font-size: 13px; padding: 8px 12px; outline: none; transition: border-color 0.2s; resize: vertical;
-    }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--green); }
-    .form-group textarea { min-height: 100px; }
-    .btn-send { background: var(--green2); border: 1px solid var(--green); color: #fff; padding: 9px 24px; border-radius: 6px; font-family: monospace; font-size: 13px; cursor: pointer; transition: background 0.2s; }
-    .btn-send:hover { background: #2ea043; }
+      /* main cursor */
+      .cursor {
+        position: fixed;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ff9ecb, #ff6fa5);
+        box-shadow: 0 0 12px #ff6fa5aa, 0 0 20px #ff9ecb55;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+      }
 
-    /* FOOTER */
-    footer { padding: 1.5rem 0; text-align: center; color: var(--muted); font-size: 12px; }
-    footer span { color: var(--green); }
+      /* default cursor */
+      .cursor.heart {
+        width: 18px;
+        height: 18px;
+        background: none;
+        box-shadow: none;
+      }
 
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      h1.name { font-size: 1.6rem; }
-      .nav-links { gap: 1rem; }
-      .wrap { padding: 1.5rem 1rem; }
-    }
-  </style>
-</head>
-<body>
+      .cursor.heart::before {
+        content: "❤";
+        color: #ff6fa5;
+        font-size: 16px;
+      }
 
-<nav>
-  <div class="nav-logo">~/nanda-portfolio</div>
-  <div class="nav-links">
-    <a href="#about">about</a>
-    <a href="#projects">projects</a>
-    <a href="#stack">stack</a>
-    <a href="#contact">contact</a>
+      /* sparkle trail */
+      .sparkle {
+        position: fixed;
+        font-size: 10px;
+        color: #ffb3cc;
+        pointer-events: none;
+        animation: sparkleFade 0.7s ease-out forwards;
+        z-index: 9998;
+      }
+
+      @keyframes sparkleFade {
+        0% {
+          opacity: 1;
+          transform: scale(1) translateY(0) rotate(0deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.6) translateY(-12px) rotate(90deg);
+        }
+      }
+
+      /* NAV */
+      nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 10; }
+      .nav-logo { color: var(--pink); font-size: 14px; font-weight: bold; letter-spacing: 1px; }
+      .nav-links { display: flex; gap: 1.5rem; }
+      .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+      .nav-links a:hover { color: var(--pink); }
+
+      /* HERO */
+      .hero { padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); }
+      .terminal-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg2); border: 1px solid var(--pink-dark); border-radius: 6px; padding: 6px 14px; font-size: 12px; color: var(--pink-soft); margin-bottom: 1.5rem; }
+      .terminal-badge::after { content: " ✧"; }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); animation: pulse 2s infinite; }
+      @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+      h1.name { font-size: 2.2rem; color: var(--text); line-height: 1.2; margin-bottom: 0.5rem; font-family: monospace; }
+      h1.name span { color: var(--pink); }
+      .role { color: var(--pink-soft); font-size: 1rem; margin-bottom: 1rem; }
+      .bio-text { color: var(--muted); font-size: 13.5px; max-width: 620px; line-height: 1.85; margin-bottom: 2rem; }
+      .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+      .btn { padding: 8px 20px; border-radius: 6px; font-size: 13px; font-family: monospace; cursor: pointer; border: 1px solid; text-decoration: none; transition: all 0.2s; display: inline-block; }
+      .btn-primary { background: var(--pink-dark); border-color: var(--pink); color: #fff; }
+      .btn-primary:hover { background: var(--pink); box-shadow: 0 0 10px #ff6fa577; }
+      .btn-outline { background: transparent; border-color: var(--border); color: var(--muted); }
+      .btn-outline:hover { border-color: var(--pink); color: var(--pink); }
+
+      /* SECTIONS */
+      section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+      .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; }
+      .section-tag { color: var(--pink); font-size: 12px; }
+      h2.section-title { font-size: 1.1rem; color: var(--text); }
+
+      /* PROJECTS */
+      .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+      .project-card { background: var(--bg2); border: 1px solid var(--border); border-color: var(--pink);  border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 10px; }
+      .project-card:hover { border-color: var(--pink); }
+      .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+      .card-links { display: flex; gap: 6px; }
+      .card-links a { color: var(--muted); font-size: 11px; text-decoration: none; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; transition: all 0.2s; }
+      .card-links a:hover { color: var(--pink-soft); border-color: var(--pink-soft); }
+      .card-title { font-size: 14px; font-weight: bold; color: var(--text); line-height: 1.4; }
+      .card-desc { font-size: 12px; color: var(--muted); line-height: 1.75; flex: 1; }
+      .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .tag { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #0c2d6b22; border: 1px solid #58a6ff44; color: var(--pink-soft); }
+      .tag.green { background: #0d4c2622; border-color: #3fb95044; color: var(--pink); }
+      .tag.amber { background: #3d2c0022; border-color: #d2992244; color: var(--amber); }
+      .tag.purple { background: #2d1e4f22; border-color: #bc8cff44; color: var(--purple); }
+      .collab-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--purple); border: 1px solid #bc8cff44; border-radius: 4px; padding: 2px 8px; background: #2d1e4f22; width: fit-content; }
+
+      /* STACK */
+      .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+      .stack-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s; }
+      .stack-item:hover { border-color: var(--pink-soft); }
+      .stack-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+      .stack-name { font-size: 13px; color: var(--text); }
+      .stack-level { font-size: 11px; color: var(--muted); }
+      .stack-level.beginner { color: var(--amber); }
+
+      /* CONTACT */
+      .contact-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; max-width: 520px; }
+      .prompt-line { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; margin-bottom: 1.5rem; }
+      .prompt-sym { color: var(--pink); }
+      .email-link { color: var(--pink-soft); font-size: 13px; margin-bottom: 1.5rem; display: block; text-decoration: none; }
+      .email-link:hover { text-decoration: underline; }
+      .form-group { margin-bottom: 16px; }
+      .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+      .form-group input, .form-group textarea {
+        width: 100%; background: var(--bg3); border: 1px solid var(--border);
+        border-radius: 6px; color: var(--text); font-family: monospace;
+        font-size: 13px; padding: 8px 12px; outline: none; transition: border-color 0.2s; resize: vertical;
+      }
+      .form-group input:focus, .form-group textarea:focus { border-color: var(--pink); }
+      .form-group textarea { min-height: 100px; }
+      .btn-send { background: var(--pink2); border: 1px solid var(--pink); color: #fff; padding: 9px 24px; border-radius: 6px; font-family: monospace; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+      .btn-send:hover { background: #2ea043; }
+
+      /* FOOTER */
+      footer { padding: 1.5rem 0; text-align: center; color: var(--muted); font-size: 12px; }
+      footer span { color: var(--pink); }
+
+      /* RESPONSIVE */
+      @media (max-width: 600px) {
+        h1.name { font-size: 1.6rem; }
+        .nav-links { gap: 1rem; }
+        .wrap { padding: 1.5rem 1rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+  <nav>
+    <div class="nav-logo">~/nanda-portfolio</div>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#stack">stack</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- HERO -->
+    <div class="hero" id="about">
+      <div class="terminal-badge"><div class="dot"></div> open to opportunities</div>
+      <h1 class="name">Nanda Putri <span>Ramadhani</span></h1>
+      <div class="role">$ backend princess · api builder</div>
+      <p class="bio-text">
+        Backend-focused Web Developer with experience in building RESTful APIs using Laravel.
+        Skilled in designing relational databases, implementing authentication (JWT &amp; OAuth),
+        and developing scalable backend systems. Experienced in handling multi-role access control
+        and translating business processes into efficient and maintainable API structures.
+      </p>
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="#projects">$ view projects</a>
+        <a class="btn btn-outline" href="#contact">$ get in touch</a>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-header">
+        <span class="section-tag">// 01</span>
+        <h2 class="section-title">projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="card-top">
+            <div style="font-size:18px;">🏫</div>
+            <div class="card-links">
+              <a href="https://github.com/naandptr/sip-smeanda" target="_blank">repo</a>
+            </div>
+          </div>
+          <div class="card-title">Internship Management System — SMK Negeri 2 Jambi</div>
+          <div class="card-desc">Web-based platform for managing vocational school internship programs — covers user management, documents, attendance, daily journals, and student assessments.</div>
+          <div class="card-tags">
+            <span class="tag green">Laravel 11</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag amber">Sanctum</span>
+            <span class="tag purple">Spatie</span>
+            <span class="tag">Dompdf</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="card-top">
+            <div style="font-size:18px;">🖨️</div>
+            <div class="card-links">
+              <a href="https://github.com/projecthub-hayaa/be-projecthub-backend/tree/backend-development" target="_blank">repo</a>
+            </div>
+          </div>
+          <div class="card-title">ProjectHub API — Print Production Management</div>
+          <div class="card-desc">Backend API powering order management workflows for a print production business. Provides role-based REST endpoints to manage orders, designs, vendors, payments, and shipments.</div>
+          <div class="collab-badge">collab · backend role</div>
+          <div class="card-tags">
+            <span class="tag green">Laravel 10</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag amber">Sanctum</span>
+            <span class="tag purple">REST API</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="card-top">
+            <div style="font-size:18px;">📝</div>
+            <div class="card-links">
+              <a href="https://github.com/naandptr/notes-app-api" target="_blank">repo</a>
+            </div>
+          </div>
+          <div class="card-title">Notes App API</div>
+          <div class="card-desc">RESTful API for managing personal notes with authentication, tagging, and search functionality. Built with Laravel 12 using OAuth &amp; JWT.</div>
+          <div class="card-tags">
+            <span class="tag green">Laravel 12</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag amber">JWT</span>
+            <span class="tag purple">OAuth</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack">
+      <div class="section-header">
+        <span class="section-tag">// 02</span>
+        <h2 class="section-title">tech stack</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#ff2d2022;">🐘</div>
+          <div><div class="stack-name">PHP</div><div class="stack-level">Intermediate</div></div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#ff2d2022;">🔴</div>
+          <div><div class="stack-name">Laravel</div><div class="stack-level">Intermediate</div></div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#0064a522;">🐬</div>
+          <div><div class="stack-name">MySQL</div><div class="stack-level">Intermediate</div></div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#24292e22;">⚙️</div>
+          <div><div class="stack-name">Git</div><div class="stack-level">Intermediate</div></div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#bc8cff22;">🛡️</div>
+          <div><div class="stack-name">Sanctum / JWT</div><div class="stack-level">Intermediate</div></div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#ff6c3722;">📮</div>
+          <div><div class="stack-name">Postman</div><div class="stack-level">Intermediate</div></div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon" style="background:#f7df1e22;">🌐</div>
+          <div><div class="stack-name">HTML / CSS / JS</div><div class="stack-level beginner">Beginner</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header">
+        <span class="section-tag">// 03</span>
+        <h2 class="section-title">contact</h2>
+      </div>
+      <div class="contact-box">
+        <div class="prompt-line"><span class="prompt-sym">$</span> send_message --to=nandaputri.job@outlook.com</div>
+        <a class="email-link" href="mailto:nandaputri.job@outlook.com">nandaputri.job@outlook.com</a>
+        <div class="form-group">
+          <label>name</label>
+          <input type="text" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label>email</label>
+          <input type="email" placeholder="john@example.com" />
+        </div>
+        <div class="form-group">
+          <label>message</label>
+          <textarea placeholder="Hi Nanda, I'd like to..."></textarea>
+        </div>
+        <button class="btn-send">$ send message →</button>
+      </div>
+    </section>
+
+    <footer>
+      <p>built with ☕ + passion · <span>Nanda Putri Ramadhani</span></p>
+    </footer>
   </div>
-</nav>
 
-<div class="wrap">
+  <div class="cursor"></div>
 
-  <!-- HERO -->
-  <div class="hero" id="about">
-    <div class="terminal-badge"><div class="dot"></div> open to opportunities</div>
-    <h1 class="name">Nanda Putri <span>Ramadhani</span></h1>
-    <div class="role">$ Web Developer · Backend-focused</div>
-    <p class="bio-text">
-      Backend-focused Web Developer with experience in building RESTful APIs using Laravel.
-      Skilled in designing relational databases, implementing authentication (JWT &amp; OAuth),
-      and developing scalable backend systems. Experienced in handling multi-role access control
-      and translating business processes into efficient and maintainable API structures.
-    </p>
-    <div class="hero-btns">
-      <a class="btn btn-primary" href="#projects">$ view projects</a>
-      <a class="btn btn-outline" href="#contact">$ get in touch</a>
-    </div>
-  </div>
+  <script>
+    /* CUSTOM CURSOR SETUP */
+    const cursor = document.querySelector(".cursor");
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-header">
-      <span class="section-tag">// 01</span>
-      <h2 class="section-title">projects</h2>
-    </div>
-    <div class="projects-grid">
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
 
-      <div class="project-card">
-        <div class="card-top">
-          <div style="font-size:18px;">🏫</div>
-          <div class="card-links">
-            <a href="https://github.com/naandptr/sip-smeanda" target="_blank">repo</a>
-          </div>
-        </div>
-        <div class="card-title">Internship Management System — SMK Negeri 2 Jambi</div>
-        <div class="card-desc">Web-based platform for managing vocational school internship programs — covers user management, documents, attendance, daily journals, and student assessments.</div>
-        <div class="card-tags">
-          <span class="tag green">Laravel 11</span>
-          <span class="tag">PHP</span>
-          <span class="tag">MySQL</span>
-          <span class="tag amber">Sanctum</span>
-          <span class="tag purple">Spatie</span>
-          <span class="tag">Dompdf</span>
-        </div>
-      </div>
+    /* track mouse */
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
 
-      <div class="project-card">
-        <div class="card-top">
-          <div style="font-size:18px;">🖨️</div>
-          <div class="card-links">
-            <a href="https://github.com/projecthub-hayaa/be-projecthub-backend/tree/backend-development" target="_blank">repo</a>
-          </div>
-        </div>
-        <div class="card-title">ProjectHub API — Print Production Management</div>
-        <div class="card-desc">Backend API powering order management workflows for a print production business. Provides role-based REST endpoints to manage orders, designs, vendors, payments, and shipments.</div>
-        <div class="collab-badge">collab · backend role</div>
-        <div class="card-tags">
-          <span class="tag green">Laravel 10</span>
-          <span class="tag">PHP</span>
-          <span class="tag">MySQL</span>
-          <span class="tag amber">Sanctum</span>
-          <span class="tag purple">REST API</span>
-        </div>
-      </div>
+    /* smooth follow */
+    function animateCursor() {
+      currentX += (mouseX - currentX) * 0.15;
+      currentY += (mouseY - currentY) * 0.15;
 
-      <div class="project-card">
-        <div class="card-top">
-          <div style="font-size:18px;">📝</div>
-          <div class="card-links">
-            <a href="https://github.com/naandptr/notes-app-api" target="_blank">repo</a>
-          </div>
-        </div>
-        <div class="card-title">Notes App API</div>
-        <div class="card-desc">RESTful API for managing personal notes with authentication, tagging, and search functionality. Built with Laravel 12 using OAuth &amp; JWT.</div>
-        <div class="card-tags">
-          <span class="tag green">Laravel 12</span>
-          <span class="tag">PHP</span>
-          <span class="tag">MySQL</span>
-          <span class="tag amber">JWT</span>
-          <span class="tag purple">OAuth</span>
-        </div>
-      </div>
+      cursor.style.left = currentX + "px";
+      cursor.style.top = currentY + "px";
 
-    </div>
-  </section>
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
 
-  <!-- STACK -->
-  <section id="stack">
-    <div class="section-header">
-      <span class="section-tag">// 02</span>
-      <h2 class="section-title">tech stack</h2>
-    </div>
-    <div class="stack-grid">
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#ff2d2022;">🐘</div>
-        <div><div class="stack-name">PHP</div><div class="stack-level">Intermediate</div></div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#ff2d2022;">🔴</div>
-        <div><div class="stack-name">Laravel</div><div class="stack-level">Intermediate</div></div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#0064a522;">🐬</div>
-        <div><div class="stack-name">MySQL</div><div class="stack-level">Intermediate</div></div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#24292e22;">⚙️</div>
-        <div><div class="stack-name">Git</div><div class="stack-level">Intermediate</div></div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#bc8cff22;">🛡️</div>
-        <div><div class="stack-name">Sanctum / JWT</div><div class="stack-level">Intermediate</div></div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#ff6c3722;">📮</div>
-        <div><div class="stack-name">Postman</div><div class="stack-level">Intermediate</div></div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-icon" style="background:#f7df1e22;">🌐</div>
-        <div><div class="stack-name">HTML / CSS / JS</div><div class="stack-level beginner">Beginner</div></div>
-      </div>
-    </div>
-  </section>
+    /* SPARKLE TRAIL ✦ */
+    const sparkleChars = ["✦", "✧"];
+    let lastSpawn = 0;
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-header">
-      <span class="section-tag">// 03</span>
-      <h2 class="section-title">contact</h2>
-    </div>
-    <div class="contact-box">
-      <div class="prompt-line"><span class="prompt-sym">$</span> send_message --to=nandaputri.job@outlook.com</div>
-      <a class="email-link" href="mailto:nandaputri.job@outlook.com">nandaputri.job@outlook.com</a>
-      <div class="form-group">
-        <label>name</label>
-        <input type="text" placeholder="John Doe" />
-      </div>
-      <div class="form-group">
-        <label>email</label>
-        <input type="email" placeholder="john@example.com" />
-      </div>
-      <div class="form-group">
-        <label>message</label>
-        <textarea placeholder="Hi Nanda, I'd like to..."></textarea>
-      </div>
-      <button class="btn-send">$ send message →</button>
-    </div>
-  </section>
+    document.addEventListener("mousemove", (e) => {
+      const now = Date.now();
 
-  <footer>
-    <p>built with ☕ + passion · <span>Nanda Putri Ramadhani</span></p>
-  </footer>
+      /* limit */
+      if (now - lastSpawn < 50) return;
+      lastSpawn = now;
 
-</div>
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
 
-</body>
+      sparkle.innerText =
+        sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+
+      sparkle.style.left = e.clientX + "px";
+      sparkle.style.top = e.clientY + "px";
+
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 700);
+    });
+
+    /* HEART ON HOVER */
+    const interactiveElements = document.querySelectorAll("a, button");
+
+    interactiveElements.forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("heart");
+      });
+
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("heart");
+      });
+    });
+  </script>
+  </body>
 </html>
