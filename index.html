@@ -242,9 +242,21 @@
       }
 
       @media (max-width: 600px) {
-        h1.name { font-size: 1.6rem; }
-        .nav-links { gap: 1rem; }
+        h1.name { font-size: 1.6rem; }        
         .wrap { padding: 1.5rem 1rem; }
+        nav {
+          flex-direction: column;
+          gap: 10px;
+          padding: 0.75rem 1rem;
+        }
+        .nav-links {
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .nav-links a {
+          font-size: 12px;
+        }
       }
     </style>
     <link id="favicon" rel="icon" type="image/svg+xml">
@@ -623,74 +635,8 @@
     const introDelay = introLogs.length * 500;
     setTimeout(() => {
       addLog();
-    }, introDelay);
-
-    /* CUSTOM CURSOR SETUP */
-    const cursor = document.querySelector(".cursor");
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentX = 0;
-    let currentY = 0;
-
-    /* track mouse */
-    document.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    /* smooth follow */
-    function animateCursor() {
-      currentX += (mouseX - currentX) * 0.15;
-      currentY += (mouseY - currentY) * 0.15;
-
-      cursor.style.left = currentX + "px";
-      cursor.style.top = currentY + "px";
-
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    /* SPARKLE TRAIL */
-    const sparkleChars = ["✦", "✧"];
-    let lastSpawn = 0;
-
-    document.addEventListener("mousemove", (e) => {
-      const now = Date.now();
-
-      /* limit */
-      if (now - lastSpawn < 50) return;
-      lastSpawn = now;
-
-      const sparkle = document.createElement("div");
-      sparkle.className = "sparkle";
-
-      sparkle.innerText =
-        sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
-
-      sparkle.style.left = e.clientX + "px";
-      sparkle.style.top = e.clientY + "px";
-
-      document.body.appendChild(sparkle);
-
-      setTimeout(() => {
-        sparkle.remove();
-      }, 700);
-    });
-
-    /* HEART ON HOVER */
-    const interactiveElements = document.querySelectorAll("a, button");
-
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        cursor.classList.add("heart");
-      });
-
-      el.addEventListener("mouseleave", () => {
-        cursor.classList.remove("heart");
-      });
-    });
-
+    }, introDelay);    
+    
     /* COPY EMAIL TO CLIPBOARD */
     const copyBtn = document.querySelector(".copy-btn");
 
@@ -723,6 +669,63 @@
         window.location.href = mailto;
       });
     });
+
+    /* CUSTOM CURSOR — desktop only */
+    const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    const cursor = document.querySelector(".cursor");
+
+    if (!isTouchDevice) {
+      let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateCursor() {
+        currentX += (mouseX - currentX) * 0.15;
+        currentY += (mouseY - currentY) * 0.15;
+        cursor.style.left = currentX + "px";
+        cursor.style.top = currentY + "px";
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      const sparkleChars = ["✦", "✧"];
+      let lastSpawn = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        const now = Date.now();
+        if (now - lastSpawn < 50) return;
+        lastSpawn = now;
+
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
+        sparkle.innerText = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+        sparkle.style.left = e.clientX + "px";
+        sparkle.style.top = e.clientY + "px";
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => { sparkle.remove(); }, 700);
+      });
+
+      /* heart on hover */
+      if (!isTouchDevice) {
+        const interactiveElements = document.querySelectorAll("a, button");
+
+        interactiveElements.forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.classList.add("heart");
+          });
+
+          el.addEventListener("mouseleave", () => {
+            cursor.classList.remove("heart");
+          });
+        });
+      }
+    } else {
+      cursor.style.display = "none";
+    }
   </script>
   </body>
 </html>
