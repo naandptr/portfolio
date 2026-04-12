@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nanda Putri Ramadhani — Backend Developer</title>
+    <title>Nanda — Backend Developer</title>
     <style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
@@ -23,7 +23,7 @@
         --accent: #ff9ecb; 
       }
       html { scroll-behavior: smooth; }
-      body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; }
+      body { background: radial-gradient(circle at top, #1a0f15, #140d12); color: var(--text); font-family: 'Courier New', monospace; }
       .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
 
       /* CURSOR */
@@ -56,6 +56,10 @@
         content: "❤";
         color: #ff6fa5;
         font-size: 16px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
 
       /* sparkle trail */
@@ -87,6 +91,10 @@
       .nav-links a:hover { color: var(--pink); }
 
       /* HERO */
+      .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: center; }
+      .hero-right { display: flex; justify-content: center; }
+      .hero-right .terminal { width: 100%; max-width: 380px; transform: scale(0.95); opacity: 0.9; }
+      .hero-right .terminal { box-shadow: 0 0 20px #ff6fa522; }
       .hero { padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); }
       .terminal-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg2); border: 1px solid var(--pink-dark); border-radius: 6px; padding: 6px 14px; font-size: 12px; color: var(--pink-soft); margin-bottom: 1.5rem; }
       .terminal-badge::after { content: " ✧"; }
@@ -102,17 +110,51 @@
       .btn-primary:hover { background: var(--pink); box-shadow: 0 0 10px #ff6fa577; }
       .btn-outline { background: transparent; border-color: var(--border); color: var(--muted); }
       .btn-outline:hover { border-color: var(--pink); color: var(--pink); }
+      .btn-cv { background: transparent; border: 1px solid var(--pink-dark); color: var(--pink-soft); padding: 8px 20px; border-radius: 6px; font-size: 13px; font-family: monospace; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+      .btn-cv:hover { background: var(--pink-dark); color: #fff; }
+      .social-links { display: flex; gap: 10px; align-items: center; }
+      .social-links a { color: var(--muted); text-decoration: none; font-size: 11px; border: 1px solid var(--border); border-radius: 4px; padding: 3px 10px; transition: all 0.2s; }
+      .social-links a:hover { color: var(--pink-soft); border-color: var(--pink-soft); }
 
+      /* API LOGS */
+      .terminal { display: flex; flex-direction: column; margin-top: 25px; background: #0d0a0c; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px #00000055; }
+      .terminal-header { padding: 6px 10px; font-size: 11px; color: #888; background: #111; border-bottom: 1px solid #222;
+      }
+      .cursor-blink::after { content: "_"; animation: blink 1s infinite; }
+      .logs { flex: 1; padding: 12px; font-size: 11px; font-family: monospace; color: var(--pink-soft); line-height: 1.6; max-height: 140px; overflow-y: auto; background: #0d0a0c; }
+      .logs div { animation: fadeIn 0.3s ease; }
+      
       /* SECTIONS */
       section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
       .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; }
       .section-tag { color: var(--pink); font-size: 12px; }
       h2.section-title { font-size: 1.1rem; color: var(--text); }
 
+      /* EXPERIENCE */
+      .exp-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 14px; border-left: 3px solid var(--pink-dark); }
+      .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap; gap: 6px; }
+      .exp-title { font-size: 14px; font-weight: bold; color: var(--text); }
+      .exp-period { font-size: 11px; color: var(--muted); background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; white-space: nowrap; }
+      .exp-company { font-size: 12px; color: var(--pink-soft); margin-bottom: 10px; }
+      .exp-list { list-style: none; padding: 0; }
+      .exp-list li { font-size: 12px; color: var(--muted); line-height: 1.75; padding-left: 14px; position: relative; }
+      .exp-list li::before { content: "›"; position: absolute; left: 0; color: var(--pink); }
+
+      /* EDUCATION */
+      .edu-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; border-left: 3px solid var(--pink-dark); }
+      .edu-degree { font-size: 14px; font-weight: bold; color: var(--text); margin-bottom: 4px; }
+      .edu-school { font-size: 12px; color: var(--pink-soft); margin-bottom: 6px; }
+      .edu-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+      .edu-badge { font-size: 11px; color: var(--muted); background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; }
+      .edu-badge.gpa { color: var(--pink-soft); border-color: var(--pink-dark); }
+      .contact-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
+      .contact-link { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; transition: all 0.2s; background: var(--bg3); }
+      .contact-link:hover { border-color: var(--pink); color: var(--pink-soft); }
+
       /* PROJECTS */
       .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
-      .project-card { background: var(--bg2); border: 1px solid var(--border); border-color: var(--pink);  border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 10px; }
-      .project-card:hover { border-color: var(--pink); }
+      .project-card { background: var(--bg2); border: 1px solid var(--border); border-color: var(--border);  border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 10px; }
+      .project-card:hover { border-color: var(--pink); box-shadow: 0 0 12px #ff6fa533; }
       .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
       .card-links { display: flex; gap: 6px; }
       .card-links a { color: var(--muted); font-size: 11px; text-decoration: none; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; transition: all 0.2s; }
@@ -120,7 +162,7 @@
       .card-title { font-size: 14px; font-weight: bold; color: var(--text); line-height: 1.4; }
       .card-desc { font-size: 12px; color: var(--muted); line-height: 1.75; flex: 1; }
       .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-      .tag { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #0c2d6b22; border: 1px solid #58a6ff44; color: var(--pink-soft); }
+      .tag { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #ff6fa522; border: 1px solid #ff6fa555; color: var(--pink-soft); }
       .tag.green { background: #0d4c2622; border-color: #3fb95044; color: var(--pink); }
       .tag.amber { background: #3d2c0022; border-color: #d2992244; color: var(--amber); }
       .tag.purple { background: #2d1e4f22; border-color: #bc8cff44; color: var(--purple); }
@@ -150,20 +192,41 @@
       }
       .form-group input:focus, .form-group textarea:focus { border-color: var(--pink); }
       .form-group textarea { min-height: 100px; }
-      .btn-send { background: var(--pink2); border: 1px solid var(--pink); color: #fff; padding: 9px 24px; border-radius: 6px; font-family: monospace; font-size: 13px; cursor: pointer; transition: background 0.2s; }
-      .btn-send:hover { background: #2ea043; }
+      .btn-send { background: var(--pink-dark); border: 1px solid var(--pink); color: #fff; padding: 9px 24px; border-radius: 6px; font-family: monospace; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+      .btn-send:hover { background: var(--pink); }
 
       /* FOOTER */
       footer { padding: 1.5rem 0; text-align: center; color: var(--muted); font-size: 12px; }
       footer span { color: var(--pink); }
 
+      /* ANIMATIONS */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes blink {
+        0%,100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
       /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-right {
+          margin-top: 20px;
+        }
+      }
+
       @media (max-width: 600px) {
         h1.name { font-size: 1.6rem; }
         .nav-links { gap: 1rem; }
         .wrap { padding: 1.5rem 1rem; }
       }
     </style>
+    <link id="favicon" rel="icon" type="image/svg+xml">
   </head>
 
   <body>
@@ -171,6 +234,7 @@
     <div class="nav-logo">~/nanda-portfolio</div>
     <div class="nav-links">
       <a href="#about">about</a>
+      <a href="#experience">experience</a>
       <a href="#projects">projects</a>
       <a href="#stack">stack</a>
       <a href="#contact">contact</a>
@@ -180,26 +244,99 @@
   <div class="wrap">
     <!-- HERO -->
     <div class="hero" id="about">
-      <div class="terminal-badge"><div class="dot"></div> open to opportunities</div>
-      <h1 class="name">Nanda Putri <span>Ramadhani</span></h1>
-      <div class="role">$ backend princess · api builder</div>
-      <p class="bio-text">
-        Backend-focused Web Developer with experience in building RESTful APIs using Laravel.
-        Skilled in designing relational databases, implementing authentication (JWT &amp; OAuth),
-        and developing scalable backend systems. Experienced in handling multi-role access control
-        and translating business processes into efficient and maintainable API structures.
-      </p>
-      <div class="hero-btns">
-        <a class="btn btn-primary" href="#projects">$ view projects</a>
-        <a class="btn btn-outline" href="#contact">$ get in touch</a>
+      <div class="hero-grid">
+        
+        <!-- LEFT -->
+        <div class="hero-left">
+          <div class="terminal-badge"><div class="dot"></div> status: accepting opportunities</div>
+          <h1 class="name">Nanda Putri <span>Ramadhani</span></h1>
+          <div class="role" id="typing"></div>
+          <p class="bio-text">
+            Backend-focused Web Developer with experience in building RESTful APIs using Laravel.
+          </p>
+
+          <div class="hero-btns">
+            <a class="btn btn-primary" href="#projects">$ view projects</a>
+            <a class="btn btn-outline" href="#contact">$ get in touch</a>
+            <a class="btn-cv" href="files/cv.pdf" download>&#8595; download cv</a>
+          </div>
+          <div class="social-links" style="margin-top:1.25rem;">
+            <a href="https://www.linkedin.com/in/naandptr/" target="_blank">linkedin</a>
+            <a href="https://github.com/naandptr" target="_blank">github</a>
+            <a href="https://wa.me/62895622215218" target="_blank">whatsapp</a>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="hero-right">
+          <div class="terminal">
+            <div class="terminal-header">
+              <span style="color:#ff6fa5;">nanda@dev</span>:<span style="color:#ffb3cc;">~</span> $ bash
+            </div>
+            <div class="logs"></div>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header">
+        <span class="section-tag">// 01</span>
+        <h2 class="section-title">experience</h2>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-title">Web Developer</div>
+          <div class="exp-period">Oct 2025 &mdash; Present</div>
+        </div>
+        <div class="exp-company">PT Hayaa Investama Group &middot; Jambi</div>
+        <ul class="exp-list">
+          <li>Developed RESTful APIs using Laravel to support end-to-end order-to-production workflows</li>
+          <li>Designed and managed relational database schemas (orders, designs, productions, payments, shipments)</li>
+          <li>Implemented multi-role access control (superadmin, admin, designer PIC, production PIC)</li>
+          <li>Translated business processes into backend logic and API endpoints</li>
+          <li>Performed debugging and optimized application flow based on operational needs</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-title">Scrum Master &amp; Developer</div>
+          <div class="exp-period">Feb 2025 &mdash; Mar 2025</div>
+        </div>
+        <div class="exp-company">Final Project &middot; SMK Negeri 2 Kota Jambi</div>
+        <ul class="exp-list">
+          <li>Designed relational database structure and system architecture</li>
+          <li>Implemented authentication and role-based access control</li>
+          <li>Applied MVC architecture using Laravel Blade</li>
+          <li>Coordinated development process using Scrum methodology</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-header">
+        <span class="section-tag">// 02</span>
+        <h2 class="section-title">education</h2>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor of Computer Science &mdash; Information Systems</div>
+        <div class="edu-school">University of Jambi &middot; Muaro Jambi</div>
+        <div class="edu-meta">
+          <span class="edu-badge">2021 &mdash; 2025</span>
+          <span class="edu-badge gpa">GPA 3.74 / 4.00</span>
+          <span class="edu-badge">Graduated with Honors</span>
+        </div>
+      </div>
+    </section>
 
     <!-- PROJECTS -->
     <section id="projects">
       <div class="section-header">
-        <span class="section-tag">// 01</span>
-        <h2 class="section-title">projects</h2>
+        <span class="section-tag">// 03</span>
+        <h2 class="section-title">endpoints</h2>
       </div>
       <div class="projects-grid">
         <div class="project-card">
@@ -261,8 +398,8 @@
     <!-- STACK -->
     <section id="stack">
       <div class="section-header">
-        <span class="section-tag">// 02</span>
-        <h2 class="section-title">tech stack</h2>
+        <span class="section-tag">// 04</span>
+        <h2 class="section-title">tech_stack</h2>
       </div>
       <div class="stack-grid">
         <div class="stack-item">
@@ -299,8 +436,8 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="section-header">
-        <span class="section-tag">// 03</span>
-        <h2 class="section-title">contact</h2>
+        <span class="section-tag">// 05</span>
+        <h2 class="section-title">contact_me()</h2>
       </div>
       <div class="contact-box">
         <div class="prompt-line"><span class="prompt-sym">$</span> send_message --to=nandaputri.job@outlook.com</div>
@@ -329,6 +466,136 @@
   <div class="cursor"></div>
 
   <script>
+    /* CUSTOM ICON ANIMATION */
+    const frames = [
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="80">👑</text>
+    </svg>`,
+
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="80">👑</text>
+    <text x="60" y="30" font-size="20">✦</text>
+    </svg>`,
+
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="80">👑</text>
+    <text x="20" y="40" font-size="20">✧</text>
+    </svg>`
+    ];
+
+    let a = 0;
+    const favicon = document.getElementById("favicon");
+
+    setInterval(() => {
+      const svg = frames[a];
+      const url = "data:image/svg+xml," + encodeURIComponent(svg);
+      favicon.href = url;
+
+      a = (a + 1) % frames.length;
+    }, 400);
+
+    /* TYPING ANIMATION */
+    const text = "$ backend princess · building APIs...";
+    let b = 0;
+
+    function type() {
+      if (b < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(b);
+        b++;
+        setTimeout(type, 40);
+      }
+    }
+    type();
+
+    /* LOG SIMULATION */
+    const logContainer = document.querySelector(".logs");
+
+    const logTemplates = [
+      () => `[${getTime()}] GET    /api/projects 200 OK`,
+      () => `[${getTime()}] POST   /api/contact 201 Created`,
+      () => `[${getTime()}] GET    /api/projects 304 Not Modified`,
+      () => `[${getTime()}] AUTH   User authenticated (id=${rand(100,999)})`,
+      () => `[${getTime()}] DB     select * from projects (${rand(5,40)}ms)`,
+      () => `[${getTime()}] DB     insert into contacts (${rand(10,60)}ms)`,
+      () => `[${getTime()}] WARN   Too many requests from 127.0.0.1`,
+      () => `[${getTime()}] ERROR  SQLSTATE[HY000]: Connection lost`,
+    ];
+
+    function getTime() {
+      const d = new Date();
+      return d.toTimeString().split(" ")[0];
+    }
+
+    function rand(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getColor(log) {
+      if (log.includes("200") || log.includes("201")) return "#ffb3cc";
+      if (log.includes("ERROR")) return "#ff4d6d";
+      if (log.includes("WARN")) return "#ff9ecb";
+      if (log.includes("AUTH")) return "#ff6fa5";
+      if (log.includes("DB")) return "#ffc0cb";
+      return "#c9a9b6";
+    }
+
+    function addLog() {
+      const logText = logTemplates[Math.floor(Math.random() * logTemplates.length)]();
+
+      const line = document.createElement("div");
+      line.textContent = logText;
+      line.style.color = getColor(logText);
+
+      logContainer.appendChild(line);
+
+      // auto scroll
+      logContainer.scrollTop = logContainer.scrollHeight;
+
+      // limit max lines 
+      if (logContainer.children.length > 12) {
+        logContainer.removeChild(logContainer.firstChild);
+      }
+
+      // next log random delay
+      const delay = rand(300, 900);
+      setTimeout(addLog, delay);
+    }
+
+    function getFullDate() {
+      const d = new Date();
+
+      const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+      const day = days[d.getDay()];
+      const month = months[d.getMonth()];
+      const date = String(d.getDate()).padStart(2, "0");
+      const time = d.toTimeString().split(" ")[0];
+      const year = d.getFullYear();
+
+      return `${day} ${month} ${date} ${time} ${year}`;
+    }
+
+    const introLogs = [
+      "nanda@dev:~$ php artisan serve",
+      "Starting Laravel development server: http://127.0.0.1:8000",
+      `[${getFullDate()}] Development Server started`
+    ];
+
+    introLogs.forEach((log, i) => {
+      setTimeout(() => {
+        const line = document.createElement("div");
+        line.textContent = log;
+        logContainer.appendChild(line);
+      }, i * 500);
+    });
+
+    // start
+    const introDelay = introLogs.length * 500;
+    setTimeout(() => {
+      addLog();
+    }, introDelay);
+
     /* CUSTOM CURSOR SETUP */
     const cursor = document.querySelector(".cursor");
 
@@ -355,7 +622,7 @@
     }
     animateCursor();
 
-    /* SPARKLE TRAIL ✦ */
+    /* SPARKLE TRAIL */
     const sparkleChars = ["✦", "✧"];
     let lastSpawn = 0;
 
