@@ -432,6 +432,24 @@
               <span class="tag purple">OAuth</span>
             </div>
           </div>
+          <div class="project-card">
+            <div class="card-top">
+              <div style="font-size:18px;">🎓</div>
+              <div class="card-links">
+                <a href="https://butuhtoga.com/" target="_blank">live</a>
+              </div>
+            </div>
+            <div class="card-title">Hayaa Advertising Website — Graduation Services Landing Page</div>
+            <div class="card-desc">Developed a responsive WordPress landing page for a graduation services business. Customized UI beyond default widgets and extended functionality by modifying <code>functions.php</code> to implement custom components.</div>
+            <div class="collab-badge">collab · UI implementation & customization</div>
+            <div class="card-tags">
+              <span class="tag green">WordPress</span>
+              <span class="tag">PHP</span>
+              <span class="tag">Elementor</span>
+              <span class="tag purple">Custom Theme</span>
+              <span class="tag">UI/UX</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -469,6 +487,10 @@
           <div class="stack-item">
             <div class="stack-icon" style="background:#f7df1e22;">🌐</div>
             <div><div class="stack-name">HTML / CSS / JS</div><div class="stack-level beginner">Beginner</div></div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-icon" style="background:#21759b22;">🧩</div>
+            <div><div class="stack-name">WordPress</div><div class="stack-level">Intermediate (Customization)</div></div>
           </div>
         </div>
       </section>
@@ -574,6 +596,8 @@
         () => `[${getTime()}] DB     insert into contacts (${rand(10,60)}ms)`,
         () => `[${getTime()}] WARN   Too many requests from 127.0.0.1`,
         () => `[${getTime()}] ERROR  SQLSTATE[HY000]: Connection lost`,
+        () => `[${getTime()}] BUILD  Attendance API (geo + radius validation)`,
+        () => `[${getTime()}] LEARN  Exploring NestJS architecture`,
       ];
 
       function getTime() {
@@ -591,6 +615,8 @@
         if (log.includes("WARN")) return "#ff9ecb";
         if (log.includes("AUTH")) return "#ff6fa5";
         if (log.includes("DB")) return "#ffc0cb";
+        if (log.includes("BUILD")) return "#ff6fa5";
+        if (log.includes("LEARN")) return "#ff9ecb";
         return "#c9a9b6";
       }
 
